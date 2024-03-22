@@ -11,13 +11,12 @@ int main(void)
 {
 	char *buffer;
 	size_t bufsize = 4095;
-	int i, j, count;
 	char *buffer;
 	ssize_t bytes;
 	char **userArgs;
+	int count = 0;
 
-	/* init count, allocate mem for buffer */
-	count = 0;
+	/* allocate mem for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
 		return (-1);
@@ -53,6 +52,9 @@ char **tokenize(char *buffer)
 {
 	char **array;
 	char *portion;
+	int i = 0;
+	int j;
+	/* first delim to check is space, then newline */
 	char *delim = " \n";
 
 	/* allocate mem for array to store tokenized input */
@@ -65,12 +67,14 @@ char **tokenize(char *buffer)
 
 	/* first strtok to initialize */
 	portion = strtok(buffer, delim);
-	i = 0;
+
+	/* strtok user input and store tokenized portions in array */
 	while (portion != NULL)
 	{
 		array[i] = strdup(portion);
 		if (array[i] == NULL)
 		{
+			/* free everything by looping through */
 			for (j = 0; j < i; j++)
 				free(array[j]);
 			free(array);

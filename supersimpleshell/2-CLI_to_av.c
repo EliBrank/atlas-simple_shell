@@ -5,8 +5,7 @@
 
 int main(void)
 {
-	int i, j;
-	int count = 0;
+	long unsigned int i, j, count;
 	char **array;
 	char *buffer;
 	size_t bufsize = 4095;
@@ -14,6 +13,7 @@ int main(void)
 	char *delim = " \n";
 	ssize_t bytes;
 
+	count = 0;
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
 		return (-1);

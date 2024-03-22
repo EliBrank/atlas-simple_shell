@@ -3,22 +3,36 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-/**
- *
- */
-
 int main(void)
 {
-	pid_t child_pid;
-	int i;
-	int numProc;
+    pid_t child_pid;
+    int i;
+    int numProc;
+    int status;
 
-	numProc = 5;
+    char *procArgs[] = {"/bin/ls", "-l", "/tmp/", NULL};
 
-	for (i = 0; i < numProc; i++)
-	{
+    numProc = 5;
 
-	}
+    for (i = 0; i < numProc; i++)
+    {
+        child_pid = fork();
+        if (child_pid == -1)
+        {
+            perror("failed to fork");
+            return (-1);
+        }
+        if (child_pid == 0)
+        {
+            if (execve(procArgs[0], procArgs) == -1)
+                perror("Error");
+        }
+        else
+        {
+            wait(&status);
+        }
+    }
 
-	return (0);
+    return (0);
 }
+

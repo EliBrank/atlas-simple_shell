@@ -7,14 +7,17 @@
  *
  */
 
+char **tokenize(char *buffer, int count);
+int forkexec(char **userArgs);
+
 int main(void)
 {
 	char *buffer;
 	size_t bufsize = 4095;
-	char *buffer;
 	ssize_t bytes;
 	char **userArgs;
-	int count = 0;
+	int argCount = 0;
+  long unsigned int i;
 
 	/* allocate mem for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
@@ -25,20 +28,21 @@ int main(void)
 	for (i = 0; i < strlen(buffer); i++)
 	{
 		if (buffer[i] == ' ')
-			count++;
+			argCount++;
 	}
 	/* accounts for final word in buffer */
 	if (buffer[strlen(buffer) - 1] != ' ')
-		count++;
+		argCount++;
 
 	/* central loop to get user input */
 	while (1)
 	{
 		printf("$ ");
-		getline(&buffer, &bufsize, stdin);
-		printf("%s", buffer);
+		bytes = getline(&buffer, &bufsize, stdin);
+    if (bytes == -1)
+
 		/* split user input into indiv strings (tokenize) */
-		userArgs = tokenize(buffer);
+		userArgs = tokenize(buffer, argCount);
     /* create fork, execute tokenized input as command */
     forkexec(userArgs);
 		if (strcmp(buffer, "exit\n") == 0)
@@ -46,11 +50,9 @@ int main(void)
 	}
 
 	free(buffer);
-
-
 }
 
-char **tokenize(char *buffer)
+char **tokenize(char *buffer, int argCount)
 {
 	char **array;
 	char *portion;
@@ -59,7 +61,7 @@ char **tokenize(char *buffer)
 	char *delim = " \n";
 
 	/* allocate mem for array to store tokenized input */
-	array = (char **)malloc(sizeof(char *) * (count + 1));
+	array = (char **)malloc(sizeof(char *) * (argCount + 1));
 	if (array == NULL)
 	{
 		free(buffer);
@@ -90,21 +92,27 @@ char **tokenize(char *buffer)
   return (array);
 }
 
-void forkerec(char **userArgs)
+int forkexec(char **userArgs)
 {
-  child_pid = fork();
-  if (child_pid == -1)
+  int forkVal;
+  int status;
+
+  /* fork start */
+  forkVal = fork();
+  if (forkVal == -1)
   {
     perror("failed to fork");
     return (-1);
   }
-  if (child_pid == 0)
+  /* child process (runs executable) */
+  if (forkVal == 0)
   {
     if (execve(userArgs[0], userArgs, NULL) == -1)
       perror("Error");
   }
+  /* parent process waits for child to finish execution */
   else
-{
     wait(&status);
-  }
+
+  return (0);
 }

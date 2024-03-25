@@ -39,7 +39,9 @@ int main(void)
 		printf("%s", buffer);
 		/* split user input into indiv strings (tokenize) */
 		userArgs = tokenize(buffer);
-		if (strncmp(buffer, "exit", 4) == 0)
+    /* create fork, execute tokenized input as command */
+    forkexec(userArgs);
+		if (strcmp(buffer, "exit\n") == 0)
 			break;
 	}
 
@@ -52,8 +54,7 @@ char **tokenize(char *buffer)
 {
 	char **array;
 	char *portion;
-	int i = 0;
-	int j;
+	int i, j;
 	/* first delim to check is space, then newline */
 	char *delim = " \n";
 
@@ -69,6 +70,7 @@ char **tokenize(char *buffer)
 	portion = strtok(buffer, delim);
 
 	/* strtok user input and store tokenized portions in array */
+  i = 0;
 	while (portion != NULL)
 	{
 		array[i] = strdup(portion);
@@ -81,9 +83,28 @@ char **tokenize(char *buffer)
 			free(buffer);
 			return (-1);
 		}
-		printf("%s\n", array[i]);
 		portion = strtok(NULL, delim);
 		i++;
 	}
 	array[i] = NULL;
+  return (array);
+}
+
+void forkerec(char **userArgs)
+{
+  child_pid = fork();
+  if (child_pid == -1)
+  {
+    perror("failed to fork");
+    return (-1);
+  }
+  if (child_pid == 0)
+  {
+    if (execve(userArgs[0], userArgs, NULL) == -1)
+      perror("Error");
+  }
+  else
+{
+    wait(&status);
+  }
 }

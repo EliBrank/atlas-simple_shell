@@ -17,20 +17,19 @@ The shell is compiled using an Ubuntu 22.04 LTS machine with
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 
 ## FUNCTIONS
-| Function | Result |
+| **Function** | **Result** |
 | ----- | --------------------------- |
 | cp | Copy a file to another file |
 | ls | Lists contents of current directory |
 
 ## BUILT-INS
 
+| **Built-ins** | **Result** |
+| ----- | --------------------------- |
+| env | Prints the current environment |
 | exit | Exits the shell |
-
-- env: Prints the current environment
-
-- setenv: Sets the environment
-
-- unsetenv: Unsets the environment
+| setenv | Sets the environment |
+| unsetenv | Unsets the environment |
 
 ## RETURN VALUE
 

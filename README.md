@@ -17,14 +17,14 @@ The shell is compiled using an Ubuntu 22.04 LTS machine with
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 
 ## FUNCTIONS
-
-- cp: Copy a file to another file
-
-- ls: Lists contents of current directory
+| Function | Result |
+| ----- | --------------------------- |
+| cp | Copy a file to another file |
+| ls | Lists contents of current directory |
 
 ## BUILT-INS
 
-- exit: Exits the shell
+| exit | Exits the shell |
 
 - env: Prints the current environment
 

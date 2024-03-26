@@ -14,8 +14,7 @@ int forkexec(char **userArgs);
 int main(void)
 {
 	char *buffer;
-	size_t bufsize = 4095;
-	ssize_t bytes;
+	size_t bufsize = 4096;
 	char **userArgs;
 
 	/* allocate mem for buffer */
@@ -27,15 +26,14 @@ int main(void)
 	while (1)
 	{
 		printf("$ ");
-		bytes = getline(&buffer, &bufsize, stdin);
-    if (bytes == -1)
-
+		getline(&buffer, &bufsize, stdin);
+    /* exit loop if "exit" is entered */
+		if (strncmp(buffer, "exit", 4) == 0)
+			break;
 		/* split user input into indiv strings (tokenize) */
 		userArgs = tokenize(buffer);
     /* create fork, execute tokenized input as command */
     forkexec(userArgs);
-		if (strncmp(buffer, "exit", 4) == 0)
-			break;
 	}
 
 	free(buffer);
@@ -105,13 +103,16 @@ int forkexec(char **userArgs)
   if (forkVal == -1)
   {
     perror("failed to fork");
-    return (-1);
+    exit(-1);
   }
   /* child process (runs executable) */
   if (forkVal == 0)
   {
     if (execve(userArgs[0], userArgs, NULL) == -1)
+    {
       perror("Error");
+      exit(-1);
+    }
   }
   /* parent process waits for child to finish execution */
   else

@@ -12,6 +12,7 @@ int main(void)
 	if (buffer == NULL)
 		return (-1);
 
+  printf("$ ");
 	while (1)
 	{
 		printf("$ ");

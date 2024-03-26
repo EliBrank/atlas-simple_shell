@@ -7,7 +7,6 @@
 /**
  *
  */
-
 char **tokenize(char *buffer);
 int forkexec(char **userArgs);
 
@@ -16,6 +15,7 @@ int main(void)
 	char *buffer;
 	size_t bufsize = 4096;
 	char **userArgs;
+	int i;
 
 	/* allocate mem for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
@@ -35,7 +35,10 @@ int main(void)
     /* create fork, execute tokenized input as command */
     forkexec(userArgs);
 	}
+	for (i = 0; userArgs[i] != NULL; i++)
+		free(userArgs[i]);
 
+	free(userArgs);
 	free(buffer);
 
   return (0);
@@ -90,7 +93,8 @@ char **tokenize(char *buffer)
 		i++;
 	}
 	array[i] = NULL;
-  return (array);
+	free(portion);
+	return (array);
 }
 
 int forkexec(char **userArgs)

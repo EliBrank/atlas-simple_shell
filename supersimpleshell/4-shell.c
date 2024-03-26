@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/wait.h>
 
 /**
  *
  */
 
-char **tokenize(char *buffer, int count);
+char **tokenize(char *buffer);
 int forkexec(char **userArgs);
 
 int main(void)
@@ -16,23 +17,11 @@ int main(void)
 	size_t bufsize = 4095;
 	ssize_t bytes;
 	char **userArgs;
-	int argCount = 0;
-  long unsigned int i;
 
 	/* allocate mem for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
 		return (-1);
-
-	/* gets num of args (strings) in buffer by counting spaces */
-	for (i = 0; i < strlen(buffer); i++)
-	{
-		if (buffer[i] == ' ')
-			argCount++;
-	}
-	/* accounts for final word in buffer */
-	if (buffer[strlen(buffer) - 1] != ' ')
-		argCount++;
 
 	/* central loop to get user input */
 	while (1)
@@ -42,30 +31,44 @@ int main(void)
     if (bytes == -1)
 
 		/* split user input into indiv strings (tokenize) */
-		userArgs = tokenize(buffer, argCount);
+		userArgs = tokenize(buffer);
     /* create fork, execute tokenized input as command */
     forkexec(userArgs);
-		if (strcmp(buffer, "exit\n") == 0)
+		if (strncmp(buffer, "exit", 4) == 0)
 			break;
 	}
 
 	free(buffer);
+
+  return (0);
 }
 
-char **tokenize(char *buffer, int argCount)
+char **tokenize(char *buffer)
 {
+	int argCount = 0;
 	char **array;
 	char *portion;
-	int i, j;
+	long unsigned int i, j;
 	/* first delim to check is space, then newline */
 	char *delim = " \n";
+
+	/* gets num of args (strings) in buffer by counting spaces */
+	for (i = 0; i < strlen(buffer); i++)
+	{
+		if (buffer[i] == ' ')
+			argCount++;
+	}
+	/* accounts for final word in buffer */
+  /* looks at last char in buffer to check if space */
+	if (buffer[strlen(buffer) - 1] != ' ')
+		argCount++;
 
 	/* allocate mem for array to store tokenized input */
 	array = (char **)malloc(sizeof(char *) * (argCount + 1));
 	if (array == NULL)
 	{
 		free(buffer);
-		return (-1);
+		exit(-1);
 	}
 
 	/* first strtok to initialize */
@@ -83,7 +86,7 @@ char **tokenize(char *buffer, int argCount)
 				free(array[j]);
 			free(array);
 			free(buffer);
-			return (-1);
+			exit(1);
 		}
 		portion = strtok(NULL, delim);
 		i++;

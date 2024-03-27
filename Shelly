@@ -18,12 +18,11 @@ Shell environment that executes commands read from the standard input or from a 
 .SH OPTIONS
 .TP
 Once files are compiled, run:
-.TP
-.br
+
 $ ./shelly
 .TP
 In the command line interpretor built in options can be executed as follows:
-.TP
+
 .B env -
 Print current environment.
 

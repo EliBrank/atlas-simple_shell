@@ -21,7 +21,7 @@ Once files are compiled, run:
 
 $ ./shelly
 .TP
-In the command line interpretor built in options can be executed as follows:
+In the command line interpretor the following are able to be executed:
 
 .B env -
 Print current environment.

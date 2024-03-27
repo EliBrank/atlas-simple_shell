@@ -30,6 +30,7 @@ int main(void)
 		/* split user input into individual strings (tokenize) */
 		userArgs = tokenize(buffer);
 		/* create fork, execute tokenized input as command */
+    /* frees everything if fork or exec fails */
 		if (fork_exec(userArgs) == -1)
 		{
 			free_args(userArgs);
@@ -81,13 +82,14 @@ char **tokenize(char *buffer)
 		array[i] = strdup(portion);
 		if (array[i] == NULL)
 		{
-			/* free everything by looping through */
+			/* free everything (up to failed strdup alloc) by looping through */
 			for (j = 0; j < i; j++)
 				free(array[j]);
 			free(array);
 			free(buffer);
 			exit(1);
 		}
+    /* update portion to next token from input */
 		portion = strtok(NULL, delim);
 		i++;
 	}
@@ -126,7 +128,8 @@ int fork_exec(char **userArgs)
 void free_args(char **userArgs)
 {
 	int i;
-
+  
+  /* frees each string in array, then array itself */
 	for (i = 0; userArgs[i] != NULL; i++)
 		free(userArgs[i]);
 	free(userArgs);

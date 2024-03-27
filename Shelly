@@ -22,33 +22,30 @@ Once files are compiled, run:
 .br
 $ ./shelly
 .TP
-In the command line interpretor built in options can be executed.
-.br
+In the command line interpretor built in options can be executed as follows:
+.TP
 .B env -
 Print current environment.
-.br
+
 .B setenv -
 Sets the environment.
-.br
+
 .B unsetenv -
 Unsets the environment.
-.br
+
 .B cp -
 Copies a file to another file.
-.TP
+
 .B ls -
 Lists contents of current directory
-.TP
+
 To exit the program, run:
-.br
+
 $ exit
 
 .SH FILES
 .TP
 .I /atlasschool-simple_shell/Shelly
-
-.SH SEE ALSO
-.i sh(1)
 
 .SH BUGS
 None known.

@@ -37,7 +37,7 @@ Copies a file to another file.
 
 .B ls -
 Lists contents of current directory
-
+.TP
 To exit the program, run:
 
 $ exit

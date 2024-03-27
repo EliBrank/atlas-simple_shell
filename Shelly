@@ -1,0 +1,59 @@
+.\" Manpage for Shelly.
+.\" Contact abigailrosea10@gmail.com to correct errors or typos.
+
+.TH SHELLY 1 "March 2024" "Version 1.0" "LINUX"
+
+.SH NAME
+SHELLY \- Command line interface interpreter.
+
+.SH SYNOPSIS
+.B Shelly
+.RB [ " options, " " command_string | file " " ..." ]
+
+.SH DESCRIPTION
+.B Shelly
+.TP
+Shell environment that executes commands read from the standard input or from a file.
+
+.SH OPTIONS
+.TP
+Once files are compiled, run:
+
+$ ./shelly
+.TP
+In the command line interpretor built in options can be executed as follows:
+
+.B env -
+Print current environment.
+
+.B setenv -
+Sets the environment.
+
+.B unsetenv -
+Unsets the environment.
+
+.B cp -
+Copies a file to another file.
+
+.B ls -
+Lists contents of current directory
+.TP
+To exit the program, run:
+
+$ exit
+
+.SH FILES
+.TP
+.I /atlasschool-simple_shell/Shelly
+
+.SH BUGS
+None known.
+
+.SH AUTHOR
+Written by Eli Brinkman and Abigail Aleman.
+
+.SH VERSION
+.B Shelly
+V1.0
+.SH COPYRIGHT
+This is free and unencumbered software released into the public domain.

@@ -4,44 +4,43 @@
 #include <string.h>
 #include <sys/wait.h>
 
-/**
- *
- */
 char **tokenize(char *buffer);
-int forkexec(char **userArgs);
+int fork_exec(char **userArgs);
+void free_args(char **userArgs);
 
 int main(void)
 {
 	char *buffer;
 	size_t bufsize = 4096;
 	char **userArgs;
-	int i;
 
-	/* allocate mem for buffer */
+	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
-		return (-1);
+		return -1;
 
 	/* central loop to get user input */
 	while (1)
 	{
 		printf("$ ");
 		getline(&buffer, &bufsize, stdin);
-    /* exit loop if "exit" is entered */
-		if (strncmp(buffer, "exit", 4) == 0)
+		/* exit loop if "exit" is entered */
+		if (strcmp(buffer, "exit\n") == 0)
 			break;
-		/* split user input into indiv strings (tokenize) */
+		/* split user input into individual strings (tokenize) */
 		userArgs = tokenize(buffer);
-    /* create fork, execute tokenized input as command */
-    forkexec(userArgs);
+		/* create fork, execute tokenized input as command */
+		if (fork_exec(userArgs) == -1)
+		{
+			free_args(userArgs);
+			free(buffer);
+			exit(-1);
+		}
+		free_args(userArgs);
 	}
-	for (i = 0; userArgs[i] != NULL; i++)
-		free(userArgs[i]);
 
-	free(userArgs);
 	free(buffer);
-
-  return (0);
+	return 0;
 }
 
 char **tokenize(char *buffer)
@@ -50,7 +49,7 @@ char **tokenize(char *buffer)
 	char **array;
 	char *portion;
 	long unsigned int i, j;
-	/* first delim to check is space, then newline */
+	/* first delimiter to check is space, then newline */
 	char *delim = " \n";
 
 	/* gets num of args (strings) in buffer by counting spaces */
@@ -60,11 +59,11 @@ char **tokenize(char *buffer)
 			argCount++;
 	}
 	/* accounts for final word in buffer */
-  /* looks at last char in buffer to check if space */
+	/* looks at last char in buffer to check if space */
 	if (buffer[strlen(buffer) - 1] != ' ')
 		argCount++;
 
-	/* allocate mem for array to store tokenized input */
+	/* allocate memory for array to store tokenized input */
 	array = (char **)malloc(sizeof(char *) * (argCount + 1));
 	if (array == NULL)
 	{
@@ -76,7 +75,7 @@ char **tokenize(char *buffer)
 	portion = strtok(buffer, delim);
 
 	/* strtok user input and store tokenized portions in array */
-  i = 0;
+	i = 0;
 	while (portion != NULL)
 	{
 		array[i] = strdup(portion);
@@ -93,34 +92,43 @@ char **tokenize(char *buffer)
 		i++;
 	}
 	array[i] = NULL;
-	free(portion);
-	return (array);
+	return array;
 }
 
-int forkexec(char **userArgs)
+int fork_exec(char **userArgs)
 {
-  int forkVal;
-  int status;
+	int forkVal;
+	int status;
 
-  /* fork start */
-  forkVal = fork();
-  if (forkVal == -1)
-  {
-    perror("failed to fork");
-    exit(-1);
-  }
-  /* child process (runs executable) */
-  if (forkVal == 0)
-  {
-    if (execve(userArgs[0], userArgs, NULL) == -1)
-    {
-      perror("Error");
-      exit(-1);
-    }
-  }
-  /* parent process waits for child to finish execution */
-  else
-    wait(&status);
+	/* fork start */
+	forkVal = fork();
+	if (forkVal == -1)
+	{
+		perror("Fork Failure");
+		return -1;
+	}
+	/* child process (runs executable) */
+	if (forkVal == 0)
+	{
+		if (execve(userArgs[0], userArgs, NULL) == -1)
+		{
+			perror("Error");
+			return -1;
+		}
+	}
+	/* parent process waits for child to finish execution */
+	else
+		wait(&status);
 
-  return (0);
+	return 0;
 }
+
+void free_args(char **userArgs)
+{
+	int i;
+
+	for (i = 0; userArgs[i] != NULL; i++)
+		free(userArgs[i]);
+	free(userArgs);
+}
+

@@ -14,5 +14,6 @@ char **tokenize(char *buffer);
 int fork_exec(char **userArgs);
 void free_args(char **userArgs);
 int arg_count(char *str);
+char *_strdup(char *str);
 
 #endif

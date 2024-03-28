@@ -34,7 +34,7 @@ char **tokenize(char *buffer)
 	i = 0;
 	while (portion != NULL)
 	{
-		array[i] = strdup(portion);
+		array[i] = _strdup(portion);
 		if (array[i] == NULL)
 		{
 			/* free everything (up to failed strdup alloc) by looping through */

@@ -1,6 +1,9 @@
-#include <stdbool.h>
-#include <stdio.h>
-
+/**
+ * arg_count - checks for extra spaces, tabs, or new lines
+ *@str: string to be checked
+ * 
+ * Return: wordCount 
+*/
 int arg_count(char *str)
 {
 	bool is_word = false;

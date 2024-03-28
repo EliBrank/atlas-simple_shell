@@ -94,7 +94,7 @@ char **tokenize(char *buffer)
 		i++;
 	}
 	array[i] = NULL;
-	return array;
+	return (array);
 }
 
 int fork_exec(char **userArgs)
@@ -107,7 +107,7 @@ int fork_exec(char **userArgs)
 	if (forkVal == -1)
 	{
 		perror("Fork Failure");
-		return -1;
+		return (-1);
 	}
 	/* child process (runs executable) */
 	if (forkVal == 0)
@@ -115,14 +115,14 @@ int fork_exec(char **userArgs)
 		if (execve(userArgs[0], userArgs, NULL) == -1)
 		{
 			perror("Error");
-			return -1;
+			return (-1);
 		}
 	}
 	/* parent process waits for child to finish execution */
 	else
 		wait(&status);
 
-	return 0;
+	return (0);
 }
 
 void free_args(char **userArgs)

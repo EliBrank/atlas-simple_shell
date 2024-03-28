@@ -1,8 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
+#include "head_shelly.h"
 /**
  * fork_exec - forks to parent and child
  * 

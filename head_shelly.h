@@ -7,6 +7,8 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <string.h>
 
 char **tokenize(char *buffer);
 int fork_exec(char **userArgs);

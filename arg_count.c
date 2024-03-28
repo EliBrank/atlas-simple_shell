@@ -1,3 +1,4 @@
+#include "head_shelly.h"
 /**
  * arg_count - checks for extra spaces, tabs, or new lines
  *@str: string to be checked

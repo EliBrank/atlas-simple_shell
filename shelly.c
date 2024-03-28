@@ -9,7 +9,7 @@ int main(void)
 	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
-		return -1;
+		return (-1);
 
 	/* central loop to get user input */
 	while (1)
@@ -33,5 +33,5 @@ int main(void)
 	}
 
 	free(buffer);
-	return 0;
+	return (0);
 }

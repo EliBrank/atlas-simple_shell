@@ -54,15 +54,7 @@ char **tokenize(char *buffer)
 	char *delim = " \n";
 
 	/* gets num of args (strings) in buffer by counting spaces */
-	for (i = 0; i < strlen(buffer); i++)
-	{
-		if (buffer[i] == ' ')
-			argCount++;
-	}
-	/* accounts for final word in buffer */
-	/* looks at last char in buffer to check if space */
-	if (buffer[strlen(buffer) - 1] != ' ')
-		argCount++;
+	argCount = arg_count(buffer);
 
 	/* allocate memory for array to store tokenized input */
 	array = (char **)malloc(sizeof(char *) * (argCount + 1));
@@ -145,3 +137,4 @@ int _isspace(char *str) {
     }
     return (1);
 }
+

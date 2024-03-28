@@ -26,5 +26,5 @@ int arg_count(char *str)
 	if (is_word == true)
 		wordCount++;
 
-	Return(wordCount);
+	return(wordCount);
 }

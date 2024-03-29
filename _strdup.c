@@ -1,12 +1,11 @@
 #include "head_shelly.h"
-/**
- * _strdup - a lot of things will happen
- *
- * @str: string
- *
- * Return: NULL str
- */
 
+/**
+ * _strdup - duplicates string
+ * @str: string to be duplicated
+ *
+ * Return: pointer to duplicated string, NULL if failure
+ */
 char *_strdup(char *str)
 {
 	int len;

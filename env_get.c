@@ -6,4 +6,7 @@
  *
  * Return: value of environment variable if found, else NULL
  */
-char *get_env(**environ)
+char *get_env(char **env, char *var)
+{
+
+}

@@ -13,6 +13,7 @@
 typedef struct env_s
 {
 	char *env_var;
+  char *env_value;
 	struct env_s *next;
 } env_t;
 

@@ -1,5 +1,10 @@
 #include "head_shelly.h"
 
+/**
+ * main - gets, processes input for shelly
+ *
+ * Return: 0 if success, -1 if failure
+ */
 int main(void)
 {
   extern char **environ;
@@ -24,7 +29,7 @@ int main(void)
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
 		/* split user input into individual strings (tokenize) */
-		userArgs = tokenize(buffer);
+		userArgs = tokenize(buffer, " \n");
 		/* create fork, execute tokenized input as command */
     /* frees everything if fork or exec fails */
 		if (fork_exec(userArgs) == -1)

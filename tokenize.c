@@ -1,23 +1,20 @@
 #include "head_shelly.h"
+
 /**
- * tokenize - tonkenizes function
- * 
- *@buffer: string to be tokenized
+ * tokenize - tokenizes function
+ * @buffer: string to be tokenized
  *
  * Return: Array
-*/
-
-char **tokenize(char *buffer)
+ */
+char **tokenize(char *buffer, char *delim)
 {
 	int argCount = 0;
 	char **array;
 	char *portion;
 	long unsigned int i, j;
-	/* first delimiter to check is space, then newline */
-	char *delim = " \n";
 
 	/* gets num of args (strings) in buffer by counting spaces */
-	argCount = arg_count(buffer);
+	argCount = arg_count(buffer, delim);
 
 	/* allocate memory for array to store tokenized input */
 	array = (char **)malloc(sizeof(char *) * (argCount + 1));

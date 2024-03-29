@@ -2,16 +2,20 @@
 
 int main(void)
 {
+  extern char **environ;
 	char *buffer;
 	size_t bufsize = 4096;
 	char **userArgs;
 
-	/* allocate memory for buffer */
+  /* set up environment */
+  char **env = env_setup(environ);
+
+  /* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
 		return (-1);
 
-	/* central loop to get user input */
+	/* central loop to get user input */ 
 	while (1)
 	{
 		printf("$ ");

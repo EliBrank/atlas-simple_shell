@@ -13,7 +13,9 @@
 typedef struct env_s
 {
 	char *env_var;
-  char *env_value;
+  	char *env_value;
+  	char *var;
+	unsigned int len;
 	struct env_s *next;
 } env_t;
 

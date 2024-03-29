@@ -7,22 +7,31 @@
  *
  * Return: head node with new variable added, NULL on failure
  */
-prepend_env_node(env_t **head, char *var)
+env_t *prepend_env_node(env_t **head, char *var)
 {
-  env_t *tmp = NULL;
-  env_t *ptr = NULL;
+    env_t *new_env = NULL;
 
-  tmp = (env_t *)malloc(sizeof(env_t));
+    if (head == NULL)
+        return(NULL);
 
-  tmp->var = item;
-  tmp->next = NULL;
-  if (*head == NULL)
-      *head = tmp;
-  else
-  {
-      ptr = *head;
-      while (ptr->next != NULL)
-          ptr = ptr->next;
-      ptr->next = tmp;
-  }
+    new_env = malloc(sizeof(head));
+    
+    if (new_env == NULL)
+        return (NULL);
+
+    new_env->var = malloc(strlen(var) + 1);
+
+    if (new_env->var == NULL)
+    {
+        free(new_env);
+        return (NULL);
+    }
+
+    strcpy(new_env->var, var);
+    new_env->next = *head;
+    new_env->len = strlen(var);
+
+    *head = new_env;
+
+    return (*head);
 }

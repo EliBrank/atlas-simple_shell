@@ -12,12 +12,16 @@
 
 typedef struct env_s
 {
-	char *env_var;
-  	char *env_value;
-  	char *var;
-	unsigned int len;
+	char *var;
+  char *value;
 	struct env_s *next;
 } env_t;
+
+typedef struct func_s
+{
+	char *builtIn;
+	int (*function)(char *);
+} func_t;
 
 char **tokenize(char *buffer);
 int fork_exec(char **userArgs);

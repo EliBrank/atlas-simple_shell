@@ -7,13 +7,15 @@
  */
 int main(void)
 {
-  extern char **environ;
+  /* extern char **environ; */
 	char *buffer;
 	size_t bufsize = 4096;
 	char **userArgs;
+  ssize_t bytes;
 
   /* set up environment */
-  char **env = env_setup(environ);
+  /* extern char **environ; */
+  /* char **env = env_setup(environ); */
 
   /* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
@@ -23,13 +25,21 @@ int main(void)
 	/* central loop to get user input */ 
 	while (1)
 	{
-		printf("$ ");
-		getline(&buffer, &bufsize, stdin);
+    if (isatty(STDIN_FILENO))
+      printf("$ ");
+		bytes = getline(&buffer, &bufsize, stdin);
+    if (bytes == -1)
+    {
+      free(buffer);
+      return (-1);
+    }
 		/* exit loop if "exit" is entered */
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
 		/* split user input into individual strings (tokenize) */
-		userArgs = tokenize(buffer, " \n");
+		userArgs = tokenize(buffer);
+    if (userArgs == NULL)
+      continue;
 		/* create fork, execute tokenized input as command */
     /* frees everything if fork or exec fails */
 		if (fork_exec(userArgs) == -1)

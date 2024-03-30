@@ -6,15 +6,20 @@
  *
  * Return: Array
  */
-char **tokenize(char *buffer, char *delim)
+char **tokenize(char *buffer)
 {
 	int argCount = 0;
 	char **array;
 	char *portion;
 	long unsigned int i, j;
+  char *delim = " \n";
 
 	/* gets num of args (strings) in buffer by counting spaces */
-	argCount = arg_count(buffer, delim);
+	argCount = arg_count(buffer);
+  if (argCount == 0)
+  {
+    return (NULL);
+  }
 
 	/* allocate memory for array to store tokenized input */
 	array = (char **)malloc(sizeof(char *) * (argCount + 1));
@@ -31,7 +36,7 @@ char **tokenize(char *buffer, char *delim)
 	i = 0;
 	while (portion != NULL)
 	{
-		array[i] = _strdup(portion);
+		array[i] = strdup(portion);
 		if (array[i] == NULL)
 		{
 			/* free everything (up to failed strdup alloc) by looping through */

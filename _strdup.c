@@ -8,19 +8,27 @@
  */
 char *_strdup(char *str)
 {
-	int len;
-	char *new;
+  char *dupStr;
+  int i;
+  int len;
 
-	if (str == NULL)
-		return (NULL);
+  if (str == NULL)
+    return (NULL);
 
-	len = strlen(str);
+  len = 0;
+  while (str[len])
+    len++;
 
-	new = malloc(len * sizeof(char) + 1);
-	if (new == NULL)
-		return (NULL);
+  dupStr = malloc(sizeof(char) * len + 1);
 
-	new = strncpy(new, str, len);
+  if (dupStr == NULL)
+    return (NULL);
 
-	return (new);
+  for (i = 0; i < len; i++)
+    dupStr[i] = str[i];
+
+  dupStr[i] = '\0';
+
+  return (dupStr);
 }
+

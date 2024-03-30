@@ -7,13 +7,13 @@
  */
 int main(void)
 {
-  extern char **environ;
+  /* extern char **environ; */
 	char *buffer;
 	size_t bufsize = 4096;
 	char **userArgs;
 
   /* set up environment */
-  char **env = env_setup(environ);
+  /* char **env = env_setup(environ); */
 
   /* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
@@ -29,7 +29,9 @@ int main(void)
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
 		/* split user input into individual strings (tokenize) */
-		userArgs = tokenize(buffer, " \n");
+		userArgs = tokenize(buffer);
+    if (userArgs == NULL)
+      continue;
 		/* create fork, execute tokenized input as command */
     /* frees everything if fork or exec fails */
 		if (fork_exec(userArgs) == -1)

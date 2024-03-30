@@ -6,7 +6,7 @@
  * 
  * Return: wordCount 
  */
-int word_count(char *str)
+int arg_count(char *str)
 {
 	bool is_word = false;
 	int wordCount = 0;

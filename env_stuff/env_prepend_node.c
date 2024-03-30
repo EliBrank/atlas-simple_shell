@@ -15,7 +15,7 @@ env_t *prepend_env_node(env_t **head, char *var)
         return(NULL);
 
     new_env = malloc(sizeof(head));
-    
+
     if (new_env == NULL)
         return (NULL);
 

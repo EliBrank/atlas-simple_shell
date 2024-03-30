@@ -1,37 +1,44 @@
 #include "head_shelly.h"
 
 /**
- * get_env - adds environment variable node to linked list
- * @head: first node in env var linked list
- * @var: key-value pair to assign to prepended node
+ * env_get - retrieves environment variable matching input string
+ * @env_list: list of environment variables to look through
+ * @var: name of environment variable to check for
  *
- * Return: head node with new variable added, NULL on failure
+ * Return: value of environment variable if found, else NULL
  */
-env_t *prepend_env_node(env_t **head, char *var)
+char *env_get(env_t **env_list, char *var)
 {
-    env_t *new_env = NULL;
+	env_t *tmp = NULL;
+	env_t *prev = NULL;
 
-    if (head == NULL)
-        return(NULL);
+	if (*env_list == NULL)
+		return (-1);
 
-    new_env = malloc(sizeof(head));
-    
-    if (new_env == NULL)
-        return (NULL);
+	tmp = *env_list;
 
-    new_env->var = malloc(strlen(var) + 1);
+  /* traverse list, look for node matching var */
+	while (tmp != NULL || strcmp(tmp->env_var, env_var) != 0)
+	{
+    prev = tmp;
+		tmp = tmp->next;
+	}
 
-    if (new_env->var == NULL)
-    {
-        free(new_env);
-        return (NULL);
-    }
+  /* if tmp is NULL, then the variable to delete was not found */
+	if (tmp == NULL)
+		return (-1);
+  
+  /* connect nodes around the deletion */
+  /* if prev is NULL, then the variable was found at the beginning */
+  if (prev == NULL)
+    *head = tmp->next;
+  else
+    prev->next = tmp->next;
 
-    strcpy(new_env->var, var);
-    new_env->next = *head;
-    new_env->len = strlen(var);
+  /* delete the node */
+	free(tmp->env_var);
+	free(tmp);
 
-    *head = new_env;
+	return (0);
 
-    return (*head);
 }

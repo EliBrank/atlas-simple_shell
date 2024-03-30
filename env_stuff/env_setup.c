@@ -6,7 +6,7 @@
  *
  * Return: head pointer for new environment linked list, NULL if failure
  */
-char *setup_env(char **environ)
+char *env_setup(char **environ)
 {
   env_t *env_list = NULL;
   int env_size = sizeof(environ) / sizeof(environ[0]);

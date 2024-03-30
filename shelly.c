@@ -23,8 +23,10 @@ int main(void)
 	/* central loop to get user input */ 
 	while (1)
 	{
-		printf("$ ");
-		getline(&buffer, &bufsize, stdin);
+    if (isatty(STDIN_FILENO))
+      printf("$ ");
+		if (getline(&buffer, &bufsize, stdin) == -1);
+      return (-1);
 		/* exit loop if "exit" is entered */
 		if (strcmp(buffer, "exit\n") == 0)
 			break;

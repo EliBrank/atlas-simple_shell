@@ -1,7 +1,7 @@
 #include "head_shelly.h"
 
 /**
- * get_env - adds environment variable node to linked list
+ * env_prepend_node - adds environment variable node to linked list
  * @head: first node in env var linked list
  * @var: key-value pair to assign to prepended node
  *

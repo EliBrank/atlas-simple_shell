@@ -14,7 +14,7 @@ env_t *env_setup(char **environ)
 
     for (i = 0; environ[i] != NULL; i++)
     {
-        env_convert_to_node(environ[i]);
+        new = env_convert_to_node(environ[i]);
         env_prepend_node(&env_list, environ[i]);
     }
 

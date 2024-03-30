@@ -16,8 +16,7 @@ int main(void)
 
     /* set up environment */
     extern char **environ;
-    /* char **env = env_setup(environ); */
-
+    char *env = env_setup(environ);
     /* allocate memory for buffer */
     buffer = (char *)malloc(sizeof(char) * bufsize);
     if (buffer == NULL)
@@ -36,7 +35,7 @@ int main(void)
         }
         /* exit loop if "exit" is entered */
         if (strcmp(buffer, "exit\n") == 0)
-        break;
+            break;
         /* split user input into individual strings (tokenize) */
         userArgs = tokenize(buffer);
         if (userArgs == NULL)

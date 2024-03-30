@@ -9,27 +9,12 @@
  */
 env_t *prepend_env_node(env_t **head, char *var)
 {
-    env_t *new_env = NULL;
+    env_t *new_env = env_convert_to_node(var);
 
     if (head == NULL)
         return(NULL);
 
-    new_env = malloc(sizeof(head));
-
-    if (new_env == NULL)
-        return (NULL);
-
-    new_env->var = malloc(strlen(var) + 1);
-
-    if (new_env->var == NULL)
-    {
-        free(new_env);
-        return (NULL);
-    }
-
-    strcpy(new_env->var, var);
     new_env->next = *head;
-    new_env->len = strlen(var);
 
     *head = new_env;
 

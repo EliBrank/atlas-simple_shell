@@ -18,14 +18,15 @@ env_t *env_convert_to_node(char *keyValuePair)
         exit(EXIT_FAILURE);
     }
 
-    env_node->var = strtok(keyValuePair, delim);
+    /* split key/value pair into node members */
+    env_node->var = _strdup(strtok(keyValuePair, delim));
     if (env_node->var == NULL)
     {
         free(env_node);
         perror("Error");
         exit(EXIT_FAILURE);
     }
-    env_node->value = strtok(NULL, delim);
+    env_node->value = _strdup(strtok(NULL, delim));
     if (env_node->value == NULL)
     {
         free(env_node->var);

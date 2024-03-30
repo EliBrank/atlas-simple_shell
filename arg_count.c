@@ -14,7 +14,7 @@ int arg_count(char *str)
 
     for(i = 0; str[i] != '\0'; i++)
     {
-        if(str[i] == ' ' || str[i] == '\t' || str[i] == '\n') 
+        if(str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
         {
             if (is_word == true)
             {
@@ -23,7 +23,7 @@ int arg_count(char *str)
             }
         }
         else
-        is_word = true;
+            is_word = true;
     }
     if (is_word == true)
         wordCount++;

@@ -8,25 +8,33 @@
  */
 env_t *env_convert_to_node(char *keyValuePair)
 {
-  char *delim = "=";
+    char *delim = "=";
+    env_t env_node = NULL;
 
-  env_node->var = strtok(keyValuePair, delim);
-  if (env_node->var == NULL)
-  {
-    free(env_node);
-    perror("Error");
-    exit(-1);
-  }
-  env_node->value = strtok(NULL, delim);
-  if (env_node->value == NULL)
-  {
-    free(env_node->var);
-    free(env_node);
-    perror("Error: value not found");
-    exit(-1);
-  }
+    env_node = malloc(sizeof(env_t));
+    if (env_node == NULL)
+    {
+        perror("Error allocating memory");
+        exit(EXIT_FAILURE);
+    }
 
-  env_node->next = NULL;
+    env_node->var = strtok(keyValuePair, delim);
+    if (env_node->var == NULL)
+    {
+        free(env_node);
+        perror("Error");
+        exit(EXIT_FAILURE);
+    }
+    env_node->value = strtok(NULL, delim);
+    if (env_node->value == NULL)
+    {
+        free(env_node->var);
+        free(env_node);
+        perror("Error: value not found");
+        exit(EXIT_FAILURE);
+    }
 
-  return (env_node);
+    env_node->next = NULL;
+
+    return (env_node);
 }

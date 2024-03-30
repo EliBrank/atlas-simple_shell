@@ -12,15 +12,15 @@
 
 typedef struct env_s
 {
-	char *var;
-  char *value;
-	struct env_s *next;
+    char *var;
+    char *value;
+    struct env_s *next;
 } env_t;
 
 typedef struct func_s
 {
-	char *builtIn;
-	int (*function)(char *);
+    char *builtIn;
+    int (*function)(char *);
 } func_t;
 
 char **tokenize(char *buffer);

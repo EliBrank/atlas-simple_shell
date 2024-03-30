@@ -11,8 +11,10 @@ int main(void)
 	char *buffer;
 	size_t bufsize = 4096;
 	char **userArgs;
+  ssize_t bytes;
 
   /* set up environment */
+  /* extern char **environ; */
   /* char **env = env_setup(environ); */
 
   /* allocate memory for buffer */
@@ -25,8 +27,12 @@ int main(void)
 	{
     if (isatty(STDIN_FILENO))
       printf("$ ");
-		if (getline(&buffer, &bufsize, stdin) == -1);
+		bytes = getline(&buffer, &bufsize, stdin);
+    if (bytes == -1)
+    {
+      free(buffer);
       return (-1);
+    }
 		/* exit loop if "exit" is entered */
 		if (strcmp(buffer, "exit\n") == 0)
 			break;

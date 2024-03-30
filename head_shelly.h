@@ -17,6 +17,12 @@ typedef struct env_s
 	struct env_s *next;
 } env_t;
 
+typedef struct func_s
+{
+	char *builtIn;
+	int (*function)(char *);
+} func_t;
+
 char **tokenize(char *buffer);
 int fork_exec(char **userArgs);
 void free_args(char **userArgs);

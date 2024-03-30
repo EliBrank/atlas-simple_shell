@@ -8,27 +8,27 @@
  */
 char *_strdup(char *str)
 {
-  char *dupStr;
-  int i;
-  int len;
+    char *dupStr;
+    int i;
+    int len;
 
-  if (str == NULL)
-    return (NULL);
+    if (str == NULL)
+        return (NULL);
 
-  len = 0;
-  while (str[len])
-    len++;
+    len = 0;
+    while (str[len])
+        len++;
 
-  dupStr = malloc(sizeof(char) * len + 1);
+    dupStr = malloc(sizeof(char) * len + 1);
 
-  if (dupStr == NULL)
-    return (NULL);
+    if (dupStr == NULL)
+        return (NULL);
 
-  for (i = 0; i < len; i++)
-    dupStr[i] = str[i];
+    for (i = 0; i < len; i++)
+        dupStr[i] = str[i];
 
-  dupStr[i] = '\0';
+    dupStr[i] = '\0';
 
-  return (dupStr);
+    return (dupStr);
 }
 

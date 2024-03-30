@@ -40,6 +40,30 @@ int main(void)
 		userArgs = tokenize(buffer);
     if (userArgs == NULL)
       continue;
+
+	/* see if file exists and is exacutable by comparing strings in path and userargs*/
+	char* find_executable(const char* arg, const char* paths[])
+	{
+	
+	int i = 0;
+	int len = strlen(str);
+
+	if (arg == NULL || paths == NULL)
+		return (NULL);
+
+	str = (char *)malloc(sizeof(char) * len + 1)
+	while (path[i] != NULL)
+	{
+		sprintf(str, "%s/%s", paths[i], arg[0]);
+		if (access(str, X_OK))
+		{
+			return (str);
+		}
+		i++;
+	}
+	free (str);
+	return (NULL);
+
 		/* create fork, execute tokenized input as command */
     /* frees everything if fork or exec fails */
 		if (fork_exec(userArgs) == -1)

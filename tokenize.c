@@ -12,7 +12,7 @@ char **tokenize(char *buffer)
 	char **array;
 	char *portion;
 	long unsigned int i, j;
-  char *delim = " \n";
+	char *delim = " \n";
 
 	/* gets num of args (strings) in buffer by counting spaces */
 	argCount = arg_count(buffer);

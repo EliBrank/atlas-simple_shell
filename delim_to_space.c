@@ -5,15 +5,20 @@
  * @str: string to process
  * @delim: delimiter to target for conversion
  * 
- * Return: processed string
+ * Return: processed string, NULL if failure
  */
 char *delim_to_space(char *str, char *delim)
 {
+    char *tmpStr;
     char *newStr;
     int len = strlen(delim);
     int i, j;
 
     tmpStr = _strdup(str);
+    if (tmpStr == NULL)
+    {
+        return (NULL);
+    }
     for (i = 0; str[i] != '\0'; i++)
     {
         for (j = 0; j < len; j++)

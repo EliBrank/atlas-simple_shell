@@ -28,5 +28,12 @@ int fork_exec(char **userArgs);
 void free_args(char **userArgs);
 int arg_count(char *str);
 char *_strdup(char *str);
+char* find_executable(const char *arg, const char **paths);
+char *delim_to_space(char *str, char *delim);
+env_t *env_convert_to_node(char *keyValuePair);
+int env_delete_node(env_t **head, char *env_var);
+char *env_get(env_t **env_list, char *var);
+env_t *prepend_env_node(env_t **head, char *var);
+env_t *env_setup(char **environ);
 
 #endif

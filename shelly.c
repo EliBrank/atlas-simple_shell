@@ -12,7 +12,7 @@ int main(void)
     size_t bufsize = 4096;
     char **userArgs;
     ssize_t bytes;
-    int env_size;
+    char *path_value;
 
     /* set up environment */
     extern char **environ;
@@ -40,6 +40,8 @@ int main(void)
         userArgs = tokenize(buffer);
         if (userArgs == NULL)
             continue;
+        path_value = get_path(env);
+        find_executable(userArgs[0], path_value);
         /* create fork, execute tokenized input as command */
         /* frees everything if fork or exec fails */
         if (fork_exec(userArgs) == -1)
@@ -50,48 +52,6 @@ int main(void)
         }
         free_args(userArgs);
     }
-
-		/* exit loop if "exit" is entered */
-		if (strcmp(buffer, "exit\n") == 0)
-			break;
-		/* split user input into individual strings (tokenize) */
-		userArgs = tokenize(buffer);
-    if (userArgs == NULL)
-      continue;
-
-	/* see if file exists and is exacutable by comparing strings in path and userargs*/
-	char* find_executable(const char* arg, const char* paths[])
-	{
-	
-	int i = 0;
-	int len = strlen(str);
-
-	if (arg == NULL || paths == NULL)
-		return (NULL);
-
-	str = (char *)malloc(sizeof(char) * len + 1)
-	while (path[i] != NULL)
-	{
-		sprintf(str, "%s/%s", paths[i], arg[0]);
-		if (access(str, X_OK))
-		{
-			return (str);
-		}
-		i++;
-	}
-	free (str);
-	return (NULL);
-
-		/* create fork, execute tokenized input as command */
-    /* frees everything if fork or exec fails */
-		if (fork_exec(userArgs) == -1)
-		{
-			free_args(userArgs);
-			free(buffer);
-			exit(-1);
-		}
-		free_args(userArgs);
-	}
 
     free(buffer);
     return (0);

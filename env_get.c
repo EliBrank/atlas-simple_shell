@@ -7,7 +7,7 @@
  *
  * Return: value of environment variable if found, else NULL
  */
-char *env_get(env_t **environ, char *var)
+char *env_get(char **environ, char *var)
 {
 	char *delim = "=";
 	unsigned int i;

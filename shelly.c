@@ -7,9 +7,9 @@
  */
 int main(int argc, char **argv, char **envp)
 {
-	char **user_args;
+	char **user_args, **path_value_array;
 	ssize_t bytes;
-	char *buffer, *path_value_full, *path_value_array, *exec_name;
+	char *buffer, *path_value_full, *exec_name;
 	size_t bufsize = 4096;
 
 	/* argc and argv aren't necessary, so cast as void */
@@ -39,13 +39,13 @@ int main(int argc, char **argv, char **envp)
 			break;
 
 		/* tokenize user input into individual strings */
-		user_args = tokenize(buffer);
+		user_args = tokenize(buffer, " \n");
 		if (user_args == NULL)
 			continue;
-		path_value_full = env_get(envp);
-		path_value_array = tokenize(path_value, ":");
+		path_value_full = env_get(envp, "PATH");
+		path_value_array = tokenize(path_value_full, ":");
 
-		exec_name = find_executable(user_args[0], path_value);
+		exec_name = find_executable(user_args[0], path_value_array);
 
 		/* create fork, execute tokenized input as command */
 		/* frees everything if fork or exec fails */

@@ -9,24 +9,20 @@
  */
 char *delim_to_space(char *str, char *delim)
 {
-	char *tmpStr;
 	char *newStr;
-	int len = strlen(delim);
-	int i, j;
+	int i;
 
-	tmpStr = _strdup(str);
-	if (tmpStr == NULL)
+	newStr = _strdup(str);
+	if (newStr == NULL)
 	{
 		return (NULL);
 	}
+	
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		for (j = 0; j < len; j++)
+		if (str[i] == delim[0])
 		{
-			if (str[i] == delim[j])
-			{
-				newStr[i] = ' ';
-			}
+			newStr[i] = ' ';
 		}
 	}
 

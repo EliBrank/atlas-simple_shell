@@ -1,7 +1,7 @@
 #include "head_shelly.h"
 
 /**
- * word_count - gets number of arguments based on delimiter
+ * word_count - gets number of arguments based on number of spaces
  * @str: string to be checked
  * 
  * Return: wordCount 

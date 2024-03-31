@@ -7,7 +7,7 @@
  *
  * Return: complete path for program if found, else NULL
  */
-char* find_executable(const char *arg, const char **paths)
+char* find_executable(char *arg, char **paths)
 {
     int i = 0;
     int len = strlen(str);

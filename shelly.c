@@ -13,6 +13,8 @@ int main(void)
     char **userArgs;
     ssize_t bytes;
     char *path_value;
+    char *newArgOne;
+    char *tmp;
 
     /* set up environment */
     extern char **environ;
@@ -40,8 +42,26 @@ int main(void)
         userArgs = tokenize(buffer);
         if (userArgs == NULL)
             continue;
-        path_value = get_path(env);
-        find_executable(userArgs[0], path_value);
+        path_value = env_get(env);
+        paths_array = tokenize();
+
+        newArgOne = find_executable(userArgs[0], path_value);
+        if (strcmp(userArgs[0], newArgOne) != 0)
+        {
+            if (strlen(newArgOne) > strlen(userArgs[0]))
+            {
+                /* reallocate memory for the first string */
+                tmp = realloc(userArgs[0], (strlen(newArgOne) + 1) * sizeof(char));
+                if (tmp == NULL)
+                {
+                    perror("Error: failed memory allocation");
+                    exit(-1);
+                }
+                userArgs[0] = tmp;
+            }
+        }
+        strcpy(userArgs[0], newArgOne);
+
         /* create fork, execute tokenized input as command */
         /* frees everything if fork or exec fails */
         if (fork_exec(userArgs) == -1)

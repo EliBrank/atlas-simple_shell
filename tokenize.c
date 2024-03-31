@@ -2,20 +2,34 @@
 
 /**
  * tokenize - tokenizes function
- * @buffer: string to be tokenized
+ * @str: string to be tokenized
  *
  * Return: Array
  */
-char **tokenize(char *buffer)
+char **tokenize(char *str, char *delim)
 {
     int argCount = 0;
     char **array;
     char *portion;
     long unsigned int i, j;
-    char *delim = " \n";
+    char *newStr;
 
-    /* gets num of args (strings) in buffer by counting spaces */
-    argCount = arg_count(buffer);
+    /* converts delimiter in string to spaces if something else */
+    if (strchr(str, ' ') == NULL)
+    {
+        newStr = _strdup(delim_to_space(str, delim));
+        if (newStr == NULL)
+        {
+            perror("Error");
+            free(str);
+            exit(-1);
+        }
+    }
+    else
+        newStr = str;
+
+    /* gets num of args in str by counting spaces */
+    argCount = arg_count(newStr);
     if (argCount == 0)
     {
         return (NULL);
@@ -25,12 +39,13 @@ char **tokenize(char *buffer)
     array = (char **)malloc(sizeof(char *) * (argCount + 1));
     if (array == NULL)
     {
-        free(buffer);
+        perror("Error");
+        free(newStr);
         exit(-1);
     }
 
     /* first strtok to initialize */
-    portion = strtok(buffer, delim);
+    portion = strtok(str, delim);
 
     /* strtok user input and store tokenized portions in array */
     i = 0;
@@ -39,11 +54,12 @@ char **tokenize(char *buffer)
         array[i] = strdup(portion);
         if (array[i] == NULL)
         {
+            perror("Error");
             /* free everything (up to failed strdup alloc) by looping through */
             for (j = 0; j < i; j++)
                 free(array[j]);
             free(array);
-            free(buffer);
+            free(str);
             exit(1);
         }
         /* update portion to next token from input */

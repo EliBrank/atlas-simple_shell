@@ -22,7 +22,7 @@ char* find_executable(char *arg, char **paths)
 	if (str == NULL)
 	{
 		perror ("Error: failed to allocate memory");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 
 	while (path[i] != NULL)

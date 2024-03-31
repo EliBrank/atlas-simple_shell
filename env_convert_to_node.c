@@ -14,7 +14,7 @@ env_t *env_convert_to_node(char *keyValuePair)
 	env_node = malloc(sizeof(env_t));
 	if (env_node == NULL)
 	{
-		perror("Error allocating memory");
+		perror("Error: failed to allocate memory");
 		exit(EXIT_FAILURE);
 	}
 

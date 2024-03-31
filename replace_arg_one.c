@@ -18,7 +18,7 @@ void replace_arg_one(char **original_arg, const char *new_arg)
 		if (tmp == NULL)
 		{
 			perror("Error: failed memory allocation");
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
 		*original_arg = tmp;
 	}

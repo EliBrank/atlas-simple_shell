@@ -22,7 +22,7 @@ char **tokenize(char *str, char *delim)
 		{
 			perror("Error");
 			free(str);
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	else
@@ -41,7 +41,7 @@ char **tokenize(char *str, char *delim)
 	{
 		perror("Error");
 		free(newStr);
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 
 	/* first strtok to initialize */

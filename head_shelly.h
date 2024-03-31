@@ -33,7 +33,7 @@ typedef struct builtin_s
 
 char **tokenize(char *buffer);
 int fork_exec(char **user_args);
-void free_args(char **user_args);
+void free_string_array(char **str_array);
 int arg_count(char *str);
 char *_strdup(char *str);
 void replace_arg_one(char **original_arg, const char *new_arg);

@@ -35,7 +35,7 @@ int main(void)
 		{
 			free_args(user_args);
 			free(buffer);
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
 		free_args(user_args);
 	}
@@ -69,7 +69,7 @@ char **tokenize(char *buffer)
 	if (array == NULL)
 	{
 		free(buffer);
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 
 	/* first strtok to initialize */

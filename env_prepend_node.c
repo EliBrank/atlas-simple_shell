@@ -12,10 +12,12 @@ env_t *prepend_env_node(env_t **head, char *var)
 	env_t *new_env = env_convert_to_node(var);
 
 	if (head == NULL)
-		return(NULL);
+	{
+		*head = new_env;
+		return(*head);
+	}
 
 	new_env->next = *head;
-
 	*head = new_env;
 
 	return (*head);

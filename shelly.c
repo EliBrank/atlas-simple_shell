@@ -5,28 +5,32 @@
  *
  * Return: 0 if success, -1 if failure
  */
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
-	/* extern char **environ; */
-	char *buffer;
-	size_t bufsize = 4096;
 	char **user_args;
 	ssize_t bytes;
-	char *path_value, *new_arg_one;
+	char *buffer, *path_value, *new_arg_one;
+	size_t bufsize = 4096;
 
 	/* set up environment */
-	extern char **environ;
-	char *env = env_setup(environ);
+	char *env = env_setup(envp);
+
+	/* argc and argv aren't necessary, so cast as void */
+	(void)argc;
+	(void)argv;
+
 	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
 	if (buffer == NULL)
 		return (-1);
 
-	/* central loop to get user input */ 
+	/* central loop to get user input */
 	while (1)
 	{
+		/* check for interactive mode */
 		if (isatty(STDIN_FILENO))
 			printf("$ ");
+
 		bytes = getline(&buffer, &bufsize, stdin);
 		if (bytes == -1)
 		{
@@ -36,7 +40,8 @@ int main(void)
 		/* exit loop if "exit" is entered */
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
-		/* split user input into individual strings (tokenize) */
+
+		/* tokenize user input into individual strings */
 		user_args = tokenize(buffer);
 		if (user_args == NULL)
 			continue;
@@ -50,13 +55,12 @@ int main(void)
 		/* frees everything if fork or exec fails */
 		if (fork_exec(user_args) == -1)
 		{
-			free_args(user_args);
+			free_string_array(user_args);
 			free(buffer);
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
-		free_args(user_args);
+		free_string_array(user_args);
 	}
-
 	free(buffer);
 	return (0);
 }

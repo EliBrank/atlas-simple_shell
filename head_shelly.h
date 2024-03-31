@@ -17,15 +17,6 @@ typedef struct env_s
     struct env_s *next;
 } env_t;
 
-char *builtin_commads[] =
-{
-    "env"
-    "setenv"
-    "unsetenv"
-    "exit"
-};
-
-
 set
 unset
 env

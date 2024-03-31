@@ -25,12 +25,6 @@ char *builtin_commads[] =
 		"exit"
 };
 
-typedef struct builtin_s
-{
-
-}
-
-
 char **tokenize(char *buffer);
 int fork_exec(char **user_args);
 void free_string_array(char **str_array);

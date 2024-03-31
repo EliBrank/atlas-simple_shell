@@ -29,7 +29,7 @@ char *env_get(env_t **environ, char *var)
 		return (NULL);
 
 	/* strtok is run once to strip off the variable name and '=' */
-	strtok(environ[i], delim))
+	strtok(environ[i], delim);
 
 	/* now output of strtok will be environment variable's value */
 	env_value = _strdup(strtok(NULL, delim));

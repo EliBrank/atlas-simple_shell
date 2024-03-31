@@ -27,7 +27,7 @@ char* find_executable(char *arg, char **paths)
 			exit(EXIT_FAILURE);	
 		}
 		
-		str = sprintf(str, "%s/%s", paths[i], arg);
+		sprintf(str, "%s/%s", paths[i], arg);
 		if (access(str, X_OK))
 		{
 			return (str);

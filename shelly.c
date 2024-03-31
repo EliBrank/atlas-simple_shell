@@ -42,8 +42,7 @@ int main(int argc, char **argv, char **envp)
 		user_args = tokenize(buffer);
 		if (user_args == NULL)
 			continue;
-		path_value_full = env_get(env);
-		path_value_array = tokenize(path_value);
+		path_value = env_get(envp);
 
 		new_arg_one = find_executable(user_args[0], path_value);
 		replace_arg_one(&(user_args[0]), new_arg_one);

@@ -7,9 +7,9 @@
  */
 int main(int argc, char **argv, char **envp)
 {
-	char **user_args;
+	char **user_args, **path_value_array;
 	ssize_t bytes;
-	char *buffer, *path_value, *new_arg_one;
+	char *buffer, *path_value_full, *new_arg_one;
 	size_t bufsize = 4096;
 
 	/* set up environment */
@@ -45,8 +45,8 @@ int main(int argc, char **argv, char **envp)
 		user_args = tokenize(buffer);
 		if (user_args == NULL)
 			continue;
-		path_value = env_get(env);
-		paths_array = tokenize();
+		path_value_full = env_get(env);
+		path_value_array = tokenize(path_value);
 
 		new_arg_one = find_executable(user_args[0], path_value);
 		replace_arg_one(&(user_args[0]), new_arg_one);

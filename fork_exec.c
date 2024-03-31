@@ -6,7 +6,7 @@
  *
  * Return: 0
  */
-int fork_exec(char **user_args)
+int fork_exec(char *exec_name, char **user_args, char **env)
 {
 	int forkVal;
 	int status;
@@ -21,7 +21,7 @@ int fork_exec(char **user_args)
 	/* child process (runs executable) */
 	if (forkVal == 0)
 	{
-		if (execve(user_args[0], user_args, NULL) == -1)
+		if (execve(exec_name, user_args, env) == -1)
 		{
 			perror("Error");
 			return (-1);

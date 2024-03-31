@@ -16,11 +16,15 @@ char* find_executable(char *arg, char **paths)
         return (NULL);
 
     if (access(arg, X_OK))
-    {
         return (arg);
+
+    str = (char *)malloc(sizeof(char) * len + 1);
+    if (str == NULL)
+    {
+        perror ("Error: failed to allocate memory");
+        exit(-1);
     }
 
-    str = (char *)malloc(sizeof(char) * len + 1)
     while (path[i] != NULL)
     {
         sprintf(str, "%s/%s", paths[i], arg);

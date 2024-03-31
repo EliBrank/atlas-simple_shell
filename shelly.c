@@ -46,19 +46,18 @@ int main(void)
         paths_array = tokenize();
 
         newArgOne = find_executable(userArgs[0], path_value);
-        if (strcmp(userArgs[0], newArgOne) != 0)
+        /* change first arg (program name) to include absolute path */
+        /* only reallocates memory for this arg in array if changed */
+        if (strlen(newArgOne) > strlen(userArgs[0]))
         {
-            if (strlen(newArgOne) > strlen(userArgs[0]))
+            /* reallocate memory for the first string */
+            tmp = realloc(userArgs[0], (strlen(newArgOne) + 1) * sizeof(char));
+            if (tmp == NULL)
             {
-                /* reallocate memory for the first string */
-                tmp = realloc(userArgs[0], (strlen(newArgOne) + 1) * sizeof(char));
-                if (tmp == NULL)
-                {
-                    perror("Error: failed memory allocation");
-                    exit(-1);
-                }
-                userArgs[0] = tmp;
+                perror("Error: failed memory allocation");
+                exit(-1);
             }
+            userArgs[0] = tmp;
         }
         strcpy(userArgs[0], newArgOne);
 

@@ -12,12 +12,13 @@ char **tokenize(char *str, char *delim)
 	char **array;
 	char *portion;
 	long unsigned int i, j;
-	char *newStr;
+	char *newStr = NULL;
 
+	printf("test\n");
 	/* converts delimiter in string to spaces if something else */
 	if (strchr(str, ' ') == NULL)
 	{
-		newStr = _strdup(delim_to_space(str, delim));
+		newStr = (delim_to_space(str, delim));
 		if (newStr == NULL)
 		{
 			perror("Error");
@@ -26,8 +27,9 @@ char **tokenize(char *str, char *delim)
 		}
 	}
 	else
-	newStr = str;
+		newStr = str;
 
+	printf("test2\n");
 	/* gets num of args in str by counting spaces */
 	argCount = arg_count(newStr);
 	if (argCount == 0)
@@ -51,7 +53,7 @@ char **tokenize(char *str, char *delim)
 	i = 0;
 	while (portion != NULL)
 	{
-		array[i] = strdup(portion);
+		array[i] = _strdup(portion);
 		if (array[i] == NULL)
 		{
 			perror("Error");
@@ -62,6 +64,7 @@ char **tokenize(char *str, char *delim)
 			free(str);
 			exit(1);
 		}
+
 		/* update portion to next token from input */
 		portion = strtok(NULL, delim);
 		i++;

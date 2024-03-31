@@ -12,10 +12,11 @@ char *delim_to_space(char *str, char *delim)
 	char *newStr;
 	int i;
 
-	newStr = _strdup(str);
+	newStr = malloc(sizeof(char) * strlen(str) + 1);
 	if (newStr == NULL)
 	{
-		return (NULL);
+		perror("Error: failed to allocate memory");
+		exit(EXIT_FAILURE);
 	}
 	
 	for (i = 0; str[i] != '\0'; i++)

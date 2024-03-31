@@ -42,9 +42,9 @@ int main(int argc, char **argv, char **envp)
 		user_args = tokenize(buffer, " \n");
 		if (user_args == NULL)
 			continue;
+		
 		path_value_full = env_get(envp, "PATH");
 		path_value_array = tokenize(path_value_full, ":");
-
 		exec_name = find_executable(user_args[0], path_value_array);
 
 		/* create fork, execute tokenized input as command */

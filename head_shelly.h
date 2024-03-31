@@ -12,27 +12,30 @@
 
 typedef struct env_s
 {
-    char *var;
-    char *value;
-    struct env_s *next;
+	char *var;
+	char *value;
+	struct env_s *next;
 } env_t;
 
 char *builtin_commads[] =
 {
-    "env"
-    "setenv"
-    "unsetenv"
-    "exit"
+	"env"
+		"setenv"
+		"unsetenv"
+		"exit"
 };
 
+typedef struct builtin_s
+{
 
-set
-unset
-env
+}
+
+
 char **tokenize(char *buffer);
-int fork_exec(char **userArgs);
-void free_args(char **userArgs);
+int fork_exec(char **user_args);
+void free_args(char **user_args);
 int arg_count(char *str);
 char *_strdup(char *str);
+void replace_arg_one(char **original_arg, const char *new_arg);
 
 #endif

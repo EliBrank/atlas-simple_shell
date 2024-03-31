@@ -9,26 +9,26 @@
  */
 char *delim_to_space(char *str, char *delim)
 {
-    char *tmpStr;
-    char *newStr;
-    int len = strlen(delim);
-    int i, j;
+	char *tmpStr;
+	char *newStr;
+	int len = strlen(delim);
+	int i, j;
 
-    tmpStr = _strdup(str);
-    if (tmpStr == NULL)
-    {
-        return (NULL);
-    }
-    for (i = 0; str[i] != '\0'; i++)
-    {
-        for (j = 0; j < len; j++)
-        {
-            if (str[i] == delim[j])
-            {
-                newStr[i] = ' ';
-            }
-        }
-    }
+	tmpStr = _strdup(str);
+	if (tmpStr == NULL)
+	{
+		return (NULL);
+	}
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		for (j = 0; j < len; j++)
+		{
+			if (str[i] == delim[j])
+			{
+				newStr[i] = ' ';
+			}
+		}
+	}
 
-    return (newStr);
+	return (newStr);
 }

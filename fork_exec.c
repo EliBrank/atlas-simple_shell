@@ -1,13 +1,12 @@
 #include "head_shelly.h"
+
 /**
  * fork_exec - forks to parent and child
- * 
- *@userArgs: double pointer
+ * @user_args: double pointer
  *
  * Return: 0
-*/
-
-int fork_exec(char **userArgs)
+ */
+int fork_exec(char **user_args)
 {
 	int forkVal;
 	int status;
@@ -22,7 +21,7 @@ int fork_exec(char **userArgs)
 	/* child process (runs executable) */
 	if (forkVal == 0)
 	{
-		if (execve(userArgs[0], userArgs, NULL) == -1)
+		if (execve(user_args[0], user_args, NULL) == -1)
 		{
 			perror("Error");
 			return (-1);
@@ -30,7 +29,7 @@ int fork_exec(char **userArgs)
 	}
 	/* parent process waits for child to finish execution */
 	else
-		wait(&status);
+	wait(&status);
 
 	return (0);
 }

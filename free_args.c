@@ -1,17 +1,15 @@
 #include "head_shelly.h"
 
 /**
- * free_args - frees string in array
- * 
- *@userArgs: double pointer
- *
+ * free_args - frees strings in array, then array
+ * @user_args: pointer to array of strings to free
  */
-void free_args(char **userArgs)
+void free_args(char **user_args)
 {
-    int i;
+	int i;
 
-    /* frees each string in array, then array itself */
-    for (i = 0; userArgs[i] != NULL; i++)
-        free(userArgs[i]);
-    free(userArgs);
+	/* frees each string in array, then array itself */
+	for (i = 0; user_args[i] != NULL; i++)
+		free(user_args[i]);
+	free(user_args);
 }

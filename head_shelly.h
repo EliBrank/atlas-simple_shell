@@ -17,13 +17,11 @@ typedef struct env_s
     struct env_s *next;
 } env_t;
 
-char *builtin_commads[] =
+typedef struct
 {
-    "env"
-    "setenv"
-    "unsetenv"
-    "exit"
-};
+char *name;
+int(*func)(char**);
+} Builtin;
 
 
 set

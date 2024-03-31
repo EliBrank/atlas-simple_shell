@@ -9,30 +9,30 @@
  */
 char* find_executable(char *arg, char **paths)
 {
-    int i = 0;
-    int len = strlen(str);
+	int i = 0;
+	int len = strlen(str);
 
-    if (arg == NULL || paths == NULL)
-        return (NULL);
+	if (arg == NULL || paths == NULL)
+		return (NULL);
 
-    if (access(arg, X_OK))
-        return (arg);
+	if (access(arg, X_OK))
+		return (arg);
 
-    str = (char *)malloc(sizeof(char) * len + 1);
-    if (str == NULL)
-    {
-        perror ("Error: failed to allocate memory");
-        exit(-1);
-    }
+	str = (char *)malloc(sizeof(char) * len + 1);
+	if (str == NULL)
+	{
+		perror ("Error: failed to allocate memory");
+		exit(EXIT_FAILURE);
+	}
 
-    while (path[i] != NULL)
-    {
-        sprintf(str, "%s/%s", paths[i], arg);
-        if (access(str, X_OK))
-        {
-            return (str);
-        }
-        i++;
-    }
-    free (str);
-    return (NULL);
+	while (path[i] != NULL)
+	{
+		sprintf(str, "%s/%s", paths[i], arg);
+		if (access(str, X_OK))
+		{
+			return (str);
+		}
+		i++;
+	}
+	free (str);
+	return (NULL);

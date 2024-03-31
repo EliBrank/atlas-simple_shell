@@ -5,14 +5,14 @@
 #include <sys/wait.h>
 
 char **tokenize(char *buffer);
-int fork_exec(char **userArgs);
-void free_args(char **userArgs);
+int fork_exec(char **user_args);
+void free_args(char **user_args);
 
 int main(void)
 {
 	char *buffer;
 	size_t bufsize = 4096;
-	char **userArgs;
+	char **user_args;
 
 	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
@@ -28,16 +28,16 @@ int main(void)
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
 		/* split user input into individual strings (tokenize) */
-		userArgs = tokenize(buffer);
+		user_args = tokenize(buffer);
 		/* create fork, execute tokenized input as command */
     /* frees everything if fork or exec fails */
-		if (fork_exec(userArgs) == -1)
+		if (fork_exec(user_args) == -1)
 		{
-			free_args(userArgs);
+			free_args(user_args);
 			free(buffer);
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
-		free_args(userArgs);
+		free_args(user_args);
 	}
 
 	free(buffer);
@@ -69,7 +69,7 @@ char **tokenize(char *buffer)
 	if (array == NULL)
 	{
 		free(buffer);
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 
 	/* first strtok to initialize */
@@ -97,7 +97,7 @@ char **tokenize(char *buffer)
 	return (array);
 }
 
-int fork_exec(char **userArgs)
+int fork_exec(char **user_args)
 {
 	int forkVal;
 	int status;
@@ -112,7 +112,7 @@ int fork_exec(char **userArgs)
 	/* child process (runs executable) */
 	if (forkVal == 0)
 	{
-		if (execve(userArgs[0], userArgs, NULL) == -1)
+		if (execve(user_args[0], user_args, NULL) == -1)
 		{
 			perror("Error");
 			return (-1);
@@ -125,14 +125,14 @@ int fork_exec(char **userArgs)
 	return (0);
 }
 
-void free_args(char **userArgs)
+void free_args(char **user_args)
 {
 	int i;
   
   /* frees each string in array, then array itself */
-	for (i = 0; userArgs[i] != NULL; i++)
-		free(userArgs[i]);
-	free(userArgs);
+	for (i = 0; user_args[i] != NULL; i++)
+		free(user_args[i]);
+	free(user_args);
 }
 
 int _isspace(char *str) {

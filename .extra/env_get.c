@@ -9,14 +9,14 @@
  */
 char *env_get(env_t *env_list, char *var)
 {
-	env_t *tmp = *env_list;
+    env_t *tmp = *env_list;
 	unsigned int i;
 
 	i = 0;
 	while (tmp != NULL)
 	{
 		if (strcmp(tmp->var, var) == 0)
-			return (tmp->value);
+			return (tmp->val);
 		i++;
 		tmp = tmp->next;
 	}

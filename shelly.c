@@ -31,14 +31,11 @@ int main(int argc, char **argv, char **envp)
 
 		bytes = getline(&buffer, &bufsize, stdin);
 		if (bytes == -1)
-		{
-			free(buffer);
-			buffer = NULL;
-			return (-1);
-		}
-		/* exit loop if "exit" is entered */
+			break;
+
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
+
 		if (strcmp(buffer, "env\n") == 0)
 		{
 			print_env(envp);

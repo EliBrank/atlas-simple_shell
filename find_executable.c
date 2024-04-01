@@ -7,16 +7,19 @@
  *
  * Return: complete path for program if found, else NULL
  */
-char* find_executable(char *arg, char **paths)
+char *find_executable(char *arg, char **paths)
 {
 	int i = 0;
 	char *str;
 
-	if (arg == NULL || paths == NULL)
+	if (arg == NULL)
 		return (NULL);
 
 	if (access(arg, X_OK) == 0)
 		return (_strdup(arg));
+
+	if (paths == NULL)
+		return (NULL);
 
 	while (paths[i] != NULL)
 	{

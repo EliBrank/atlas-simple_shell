@@ -16,7 +16,7 @@ char* find_executable(char *arg, char **paths)
 		return (NULL);
 
 	if (access(arg, X_OK) == 0)
-		return (strdup(arg));
+		return (_strdup(arg));
 
 	while (paths[i] != NULL)
 	{

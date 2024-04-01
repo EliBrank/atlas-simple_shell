@@ -29,6 +29,6 @@ int fork_exec(char *exec_name, char **user_args, char **env, int *status)
 	/* parent process waits for child to finish execution */
 	wait(status);
 	/* ARA: use WEXITSTAUTS to extract the exit value from the wait return */
-	*status = WEXITSTATUS(*status);
+	/* *status = WEXITSTATUS(*status); */
 	return (0);
 }

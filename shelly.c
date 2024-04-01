@@ -52,8 +52,11 @@ int main(int argc, char **argv, char **envp)
 		if (user_args == NULL)
 			continue;
 		
-		path_value_full = env_get(envp, "PATH");
-		path_value_array = tokenize(path_value_full, ":");
+		if (path_value_full = env_get(envp, "PATH") != NULL);
+			path_value_array = tokenize(path_value_full, ":");
+		else 
+			path_value_array = envp;
+
 		exec_name = find_executable(user_args[0], path_value_array);
 		
 		free_string_array(path_value_array);

@@ -1,12 +1,9 @@
 #include <stdio.h>
-/*
- * print_env - print environmental variables
- *
- *@env: environment
- *
- *Return: nothing
- */
 
+/**
+ * print_env - print environmental variables
+ * @env: array of environment variables
+ */
 void print_env(char **env)
 {
 	int i = 0;

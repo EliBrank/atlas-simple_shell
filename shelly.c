@@ -4,6 +4,9 @@ void betty(void);
 
 /**
  * main - gets, processes input for shelly
+ * @argc: number of arguments (unused)
+ * @argv: arguments passed with shell
+ * @envp: array of environment variables for this function
  *
  * Return: 0 if success, -1 if failure
  */
@@ -19,6 +22,7 @@ int main(int argc, char **argv, char **envp)
 
 	/* argc and argv aren't necessary, so cast as void */
 	(void)argc;
+	(void)argv;
 	
 	/* DELETE TESTING */
 	unsetenv("PATH");
@@ -62,35 +66,27 @@ int main(int argc, char **argv, char **envp)
 			path_value_array = tokenize(path_value_full, ":");
 		else 
 		{
-			
+			fprintf(stderr, "%s file not found\n", user_args[0]);
+			continue;
 		}
 
 		exec_name = find_executable(user_args[0], path_value_array);
 		
 		free_string_array(path_value_array);
 
-		if (exec_name == NULL)
-		{
-			fprintf(stderr, "%s file not found\n", user_args[0]);
-			continue;
-		}
 		/* create fork, execute tokenized input as command */
 		/* frees everything if fork or exec fails */
 		if (fork_exec(exec_name, user_args, envp, &status) == -1)
 		{
 			free(exec_name);
-			exec_name = NULL;
 			free_string_array(user_args);
 			free(buffer);
-			buffer = NULL;
 			exit(EXIT_FAILURE);
 		}
 		free(exec_name);
-		exec_name = NULL;
 		free_string_array(user_args);
 	}
 	free(buffer);
-	buffer = NULL;
 
 	/* WEXITSTATUS extracts exit value from wait return in forkexec */
 	exit(WEXITSTATUS(status));

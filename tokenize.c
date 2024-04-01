@@ -17,7 +17,7 @@ char **tokenize(char *str, char *d)
 	if (!str)
 		return (NULL);
 
-/* count the deliminators */
+	/* count the delimiters */
 	while (len < strlen(str))
 	{
 		if (str[len] == d[0])
@@ -26,12 +26,12 @@ char **tokenize(char *str, char *d)
 	}
 	i++;
 
-/* make room for pointers to the strings */
+	/* make room for pointers to the strings */
 	res = malloc(sizeof(char *) * (++i));
 	if (res == NULL)
 		return (NULL);
 
-/* this has to be a duplicate otherwise things break */	
+	/* this has to be a duplicate otherwise things break */	
 	new = _strdup(str);
 	portion = strtok(new, d);
 	while (portion)

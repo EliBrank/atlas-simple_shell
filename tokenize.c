@@ -6,69 +6,41 @@
  *
  * Return: Array
  */
-char **tokenize(char *str, char *delim)
+
+char **tokenize(char *str, char *d)
 {
-	int argCount = 0;
-	char **array;
-	char *portion;
-	long unsigned int i, j;
-	char *newStr = NULL;
-
-	printf("test\n");
-	/* converts delimiter in string to spaces if something else */
-	if (strchr(str, ' ') == NULL)
-	{
-		newStr = (delim_to_space(str, delim));
-		if (newStr == NULL)
-		{
-			perror("Error");
-			free(str);
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-		newStr = str;
-
-	printf("test2\n");
-	/* gets num of args in str by counting spaces */
-	argCount = arg_count(newStr);
-	if (argCount == 0)
-	{
+	char *portion = NULL, *new = NULL;
+	char **res;
+	size_t len = 0;
+	int i = 0, ii = 0;
+	
+	if (!str)
 		return (NULL);
-	}
 
-	/* allocate memory for array to store tokenized input */
-	array = (char **)malloc(sizeof(char *) * (argCount + 1));
-	if (array == NULL)
+/* count the deliminators */
+	while (len < strlen(str))
 	{
-		perror("Error");
-		free(newStr);
-		exit(EXIT_FAILURE);
+		if (str[len] == d[0])
+			i++;
+		 len++;
 	}
+	i++;
 
-	/* first strtok to initialize */
-	portion = strtok(str, delim);
+/* make room for pointers to the strings */
+	res = malloc(sizeof(char *) * (++i));
+	if (res == NULL)
+		return (NULL);
 
-	/* strtok user input and store tokenized portions in array */
-	i = 0;
-	while (portion != NULL)
+/* this has to be a duplicate otherwise things break */	
+	new = _strdup(str);
+	portion = strtok(new, d);
+	while (portion)
 	{
-		array[i] = _strdup(portion);
-		if (array[i] == NULL)
-		{
-			perror("Error");
-			/* free everything (up to failed strdup alloc) by looping through */
-			for (j = 0; j < i; j++)
-				free(array[j]);
-			free(array);
-			free(str);
-			exit(1);
-		}
-
-		/* update portion to next token from input */
-		portion = strtok(NULL, delim);
-		i++;
+		res[ii++] = _strdup(portion);
+		portion = strtok(NULL, d);
 	}
-	array[i] = NULL;
-	return (array);
+	res[ii] = NULL;
+	free(new);
+
+	return (res);
 }

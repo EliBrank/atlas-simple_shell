@@ -10,7 +10,7 @@
 char *delim_to_space(char *str, char *delim)
 {
 	char *newStr;
-	int i;
+	int i = 0;
 
 	newStr = malloc(sizeof(char) * strlen(str) + 1);
 	if (newStr == NULL)
@@ -25,6 +25,8 @@ char *delim_to_space(char *str, char *delim)
 		{
 			newStr[i] = ' ';
 		}
+		else /* ARA: added else to copy the old string into the new string */
+			newStr[i] = str[i];
 	}
 
 	return (newStr);

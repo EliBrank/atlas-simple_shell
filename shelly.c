@@ -32,11 +32,17 @@ int main(int argc, char **argv, char **envp)
 		if (bytes == -1)
 		{
 			free(buffer);
+			buffer = NULL;
 			return (-1);
 		}
 		/* exit loop if "exit" is entered */
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
+		if (strcmp(buffer, "env\n") == 0)
+		{
+			print_env(envp);
+			continue;
+		}
 
 		/* tokenize user input into individual strings */
 		user_args = tokenize(buffer, " \n");
@@ -46,17 +52,31 @@ int main(int argc, char **argv, char **envp)
 		path_value_full = env_get(envp, "PATH");
 		path_value_array = tokenize(path_value_full, ":");
 		exec_name = find_executable(user_args[0], path_value_array);
+		
+		free_string_array(path_value_array);
 
+		if (exec_name == NULL)
+		{
+			fprintf(stderr, "%s file not found\n", user_args[0]);
+			continue;
+		}
 		/* create fork, execute tokenized input as command */
 		/* frees everything if fork or exec fails */
 		if (fork_exec(exec_name, user_args, envp) == -1)
 		{
+			/* ARA: leak: exec_name must be freed here */
+			free(exec_name);
+			exec_name = NULL;
 			free_string_array(user_args);
 			free(buffer);
+			buffer = NULL;
 			exit(EXIT_FAILURE);
 		}
+		free(exec_name);
+		exec_name = NULL;
 		free_string_array(user_args);
 	}
 	free(buffer);
+	buffer = NULL;
 	return (0);
 }

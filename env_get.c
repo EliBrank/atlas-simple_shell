@@ -7,15 +7,16 @@
  *
  * Return: value of environment variable if found, else NULL
  */
+
 char *env_get(char **environ, char *var)
 {
-	char *delim = "=";
 	unsigned int i;
 	int len;
-	char *env_value;
 
 	/* added 1 to length of var string accounts for '=' sign */
-	len = strlen(var) + 1;
+	/* ARA: removed 1 to length of string because strncmp would */
+	/* never return a match with a len not equal to the var */
+	len = strlen(var);
 	
 	for (i = 0; environ[i] != NULL; i++)
 	{
@@ -28,16 +29,13 @@ char *env_get(char **environ, char *var)
 	if (environ[i] == NULL)
 		return (NULL);
 
-	/* strtok is run once to strip off the variable name and '=' */
-	strtok(environ[i], delim);
-
-	/* now output of strtok will be environment variable's value */
-	env_value = _strdup(strtok(NULL, delim));
-	if (env_value == NULL)
+/* ARA: added code to return the part after the = sign */
+	if (*(environ[i] + len) == '=')
 	{
-		perror("Error: value not found");
-		exit(EXIT_FAILURE);
+		return (environ[i] + len + 1);
 	}
+/* ARA: this should go back if there wasn't an equal but */
+/* this will work and we are out of the times */
 
-	return (env_value);
+	return (NULL);
 }

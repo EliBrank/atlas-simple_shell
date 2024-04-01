@@ -6,10 +6,15 @@
  */
 void free_string_array(char **str_array)
 {
-	int i;
+	int i = 0;
 
 	/* frees each string in array, then array itself */
-	for (i = 0; str_array[i] != NULL; i++)
+	while (str_array[i])
+	{
 		free(str_array[i]);
+		str_array[i] = NULL;
+		i++;
+	}
 	free(str_array);
+	str_array = NULL;
 }

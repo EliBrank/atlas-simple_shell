@@ -52,7 +52,8 @@ int main(int argc, char **argv, char **envp)
 		if (user_args == NULL)
 			continue;
 		
-		if (path_value_full = env_get(envp, "PATH") != NULL);
+		(path_value_full = env_get(envp, "PATH"));
+		if (path_value_full != NULL)
 			path_value_array = tokenize(path_value_full, ":");
 		else 
 			path_value_array = envp;

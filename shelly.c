@@ -15,15 +15,15 @@ int main(int argc, char **argv, char **envp)
 	size_t bufsize = 7000;
 	int status = 0;
 	/* DELETE TESTING */
-	extern char **environ;
+	/*extern char **environ;*/
 
 	/* argc and argv aren't necessary, so cast as void */
 	(void)argc;
 	(void)argv;
 	
 	/* DELETE TESTING */
-	unsetenv("PATH");
-	envp = environ;
+	/*unsetenv("PATH");
+	envp = environ;*/
 
 	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);

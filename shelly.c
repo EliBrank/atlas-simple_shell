@@ -11,6 +11,7 @@ int main(int argc, char **argv, char **envp)
 	ssize_t bytes;
 	char *buffer, *path_value_full, *exec_name;
 	size_t bufsize = 4096;
+	int status = 0;
 
 	/* argc and argv aren't necessary, so cast as void */
 	(void)argc;
@@ -62,7 +63,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		/* create fork, execute tokenized input as command */
 		/* frees everything if fork or exec fails */
-		if (fork_exec(exec_name, user_args, envp) == -1)
+		if (fork_exec(exec_name, user_args, envp, &status) == -1)
 		{
 			/* ARA: leak: exec_name must be freed here */
 			free(exec_name);
@@ -78,5 +79,5 @@ int main(int argc, char **argv, char **envp)
 	}
 	free(buffer);
 	buffer = NULL;
-	return (0);
+	exit(status);
 }

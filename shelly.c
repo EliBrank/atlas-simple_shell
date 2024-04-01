@@ -1,5 +1,7 @@
 #include "head_shelly.h"
 
+void betty(void);
+
 /**
  * main - gets, processes input for shelly
  *
@@ -10,7 +12,7 @@ int main(int argc, char **argv, char **envp)
 	char **user_args, **path_value_array;
 	ssize_t bytes;
 	char *buffer, *path_value_full, *exec_name;
-	size_t bufsize = 4096;
+	size_t bufsize = 7000;
 	int status = 0;
 
 	/* argc and argv aren't necessary, so cast as void */
@@ -41,6 +43,9 @@ int main(int argc, char **argv, char **envp)
 			print_env(envp);
 			continue;
 		}
+
+		if (_isspace(buffer))
+			continue;
 
 		/* tokenize user input into individual strings */
 		user_args = tokenize(buffer, " \n");

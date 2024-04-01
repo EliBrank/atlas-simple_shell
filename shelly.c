@@ -15,15 +15,14 @@ int main(int argc, char **argv, char **envp)
 	size_t bufsize = 7000;
 	int status = 0;
 	/* DELETE TESTING */
-	/*extern char **environ;*/
+	extern char **environ;
 
 	/* argc and argv aren't necessary, so cast as void */
 	(void)argc;
-	(void)argv;
 	
 	/* DELETE TESTING */
-	/*unsetenv("PATH");
-	envp = environ;*/
+	unsetenv("PATH");
+	envp = environ;
 
 	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
@@ -62,7 +61,10 @@ int main(int argc, char **argv, char **envp)
 		if (path_value_full != NULL)
 			path_value_array = tokenize(path_value_full, ":");
 		else 
-			path_value_array = envp;
+		{
+			fprintf(stderr, "%s: %s: command not found\n", argv[0], user_args[0]);
+			continue;
+		}
 
 		exec_name = find_executable(user_args[0], path_value_array);
 		

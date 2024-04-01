@@ -79,5 +79,5 @@ int main(int argc, char **argv, char **envp)
 	}
 	free(buffer);
 	buffer = NULL;
-	exit(status);
+	exit(WEXITSTATUS(status));
 }

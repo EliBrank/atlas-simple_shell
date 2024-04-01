@@ -25,7 +25,7 @@ char *delim_to_space(char *str, char *delim)
 		{
 			newStr[i] = ' ';
 		}
-		else /* ARA: added else to copy the old string into the new string */
+		else
 			newStr[i] = str[i];
 	}
 

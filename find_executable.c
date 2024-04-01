@@ -28,7 +28,6 @@ char* find_executable(char *arg, char **paths)
 		}
 		
 		sprintf(str, "%s/%s", paths[i], arg);
-		/* ARA: changed this to == 0 because access returns 0 on success */
 		if (access(str, X_OK) == 0)
 		{
 			return (str);

@@ -71,7 +71,6 @@ int main(int argc, char **argv, char **envp)
 		/* frees everything if fork or exec fails */
 		if (fork_exec(exec_name, user_args, envp, &status) == -1)
 		{
-			/* ARA: leak: exec_name must be freed here */
 			free(exec_name);
 			exec_name = NULL;
 			free_string_array(user_args);
@@ -85,5 +84,7 @@ int main(int argc, char **argv, char **envp)
 	}
 	free(buffer);
 	buffer = NULL;
+
+	/* WEXITSTATUS extracts exit value from wait return in forkexec */
 	exit(WEXITSTATUS(status));
 }

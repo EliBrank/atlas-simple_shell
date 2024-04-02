@@ -66,9 +66,15 @@ int main(int argc, char **argv, char **envp)
 			path_value_array = tokenize(path_value_full, ":");
 		else
 		{
-			fprintf(stderr, "%s file not found\n", user_args[0]);
-			free_string_array(user_args);
-			continue;
+			/* if user passed absolute path to executable, return early */
+			if (access(user_args[0], X_OK) != 0)
+			{
+				fprintf(stderr, "%s file not found\n", user_args[0]);
+				free_string_array(user_args);
+				continue;
+			}
+			else
+				path_value_array = NULL;
 		}
 
 		/* looks for directories which contain executable name */

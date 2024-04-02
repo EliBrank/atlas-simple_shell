@@ -12,12 +12,12 @@ char *find_executable(char *arg, char **paths)
 	int i = 0;
 	char *str;
 
+	/* if user passed absolute path to executable, return early */
+	if ((access(arg, X_OK) == 0) && (strchr(arg, '/')))
+		return (_strdup(arg));
+
 	if (arg == NULL || paths == NULL)
 		return (NULL);
-
-	/* if user passed absolute path to executable, return early */
-	if (access(arg, X_OK) == 0)
-		return (_strdup(arg));
 
 	/* increment through each directory name stored in paths array */
 	while (paths[i] != NULL)

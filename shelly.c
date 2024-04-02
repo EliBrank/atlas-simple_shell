@@ -64,11 +64,19 @@ int main(int argc, char **argv, char **envp)
 		else
 		{
 			fprintf(stderr, "%s file not found\n", user_args[0]);
+			free_string_array(user_args);
 			continue;
 		}
 
 		/* looks for directories which contain executable name */
 		exec_name = find_executable(user_args[0], path_value_array);
+		if(exec_name == NULL)
+		{
+			fprintf(stderr, "%s: %s: command not found\n", argv[0], user_args[0]);
+			free_string_array(user_args);
+			free_string_array(path_value_array);
+			continue;
+		}
 		free_string_array(path_value_array);
 
 		/* create fork, execute tokenized input as command */

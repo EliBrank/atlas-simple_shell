@@ -5,6 +5,5 @@
 #include "fork_exec.c"
 #include "find_executable.c"
 #include "env_get.c"
-#include "delim_to_space.c"
-#include "arg_count.c"
 #include "_strdup.c"
+#include "_isspace.c"

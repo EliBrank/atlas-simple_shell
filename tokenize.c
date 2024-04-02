@@ -1,12 +1,12 @@
 #include "head_shelly.h"
 
 /**
- * tokenize - tokenizes function
+ * tokenize - tokenizes string into array of strings
  * @str: string to be tokenized
+ * @delim: delimiter used for tokenization
  *
- * Return: Array
+ * Return: array of strings
  */
-
 char **tokenize(char *str, char *delim)
 {
 	char *portion = NULL, *new_str = NULL;
@@ -31,7 +31,7 @@ char **tokenize(char *str, char *delim)
 	if (array == NULL)
 		return (NULL);
 
-	/* this has to be a duplicate otherwise things break */	
+	/* str has to be a duplicate otherwise things break */	
 	new_str = _strdup(str);
 	portion = strtok(new_str, delim);
 	while (portion)
@@ -40,6 +40,7 @@ char **tokenize(char *str, char *delim)
 		portion = strtok(NULL, delim);
 		i++;
 	}
+	/* NULL added to cap off array of strings */
 	array[i] = NULL;
 	free(new_str);
 

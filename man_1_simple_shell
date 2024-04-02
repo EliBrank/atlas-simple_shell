@@ -21,11 +21,10 @@ The shell is able to read input lines as implemented or from a piped file.
 
 .SH OPTIONS
 
-hsh is the executable that the user is able to use in order to enter interactive mode.
 .TP
 Once files are compiled, run:
 
-$ ./shelly
+$ ./hsh
 .TP
 In the command line interpretor the following built-ins are able to be used:
 
@@ -37,15 +36,15 @@ To exit the program, run:
 
 $ exit
 
-.SH FILES
-.TP
-.I /atlasschool-simple_shell/Shelly
-
 .SH BUILT-IN COMMANDS
 .TP
 exit: Exits the shell. 
 
 env: Prints the current environment.
+
+.SH FILES
+.TP
+.I https://github.com/EliBrank/atlas-simple_shell
 
 .SH BUGS
 None known.

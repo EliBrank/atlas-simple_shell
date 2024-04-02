@@ -37,9 +37,13 @@ int main(int argc, char **argv, char **envp)
 		if (bytes == -1)
 			break;
 		
+		if (_isspace(buffer))
+			continue;
+
 		/* built-ins */
 		if (strcmp(buffer, "exit\n") == 0)
 			break;
+		
 		if (strcmp(buffer, "env\n") == 0)
 		{
 			print_env(envp);

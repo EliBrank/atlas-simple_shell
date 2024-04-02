@@ -18,15 +18,15 @@ int main(int argc, char **argv, char **envp)
 	size_t bufsize = 7000;
 	int status = 0;
 	/* DELETE TESTING */
-	/*extern char **environ;*/
+	extern char **environ;
 
 	/* argc and argv aren't necessary, so cast as void */
 	(void)argc;
 	(void)argv;
 	
 	/* DELETE TESTING */
-	/*unsetenv("PATH");
-	envp = environ;*/
+	unsetenv("PATH");
+	envp = environ;
 
 	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);
@@ -63,17 +63,21 @@ int main(int argc, char **argv, char **envp)
 		
 		path_value_full = env_get(envp, "PATH");
 		if (path_value_full != NULL)
-			path_value_array = tokenize(path_value_full, ":");
-		else 
 		{
-			
+			path_value_array = tokenize(path_value_full, ":");
+			exec_name = find_executable(user_args[0], path_value_array);
+			free_string_array(path_value_array);
+		}
+		else if (access(user_args[0], X_OK) == 0) 
+			exec_name = user_args[0];
+		else
+		{
 			fprintf(stderr, "%s file not found\n", user_args[0]);
 			continue;
 		}
-
-		exec_name = find_executable(user_args[0], path_value_array);
 		
-		free_string_array(path_value_array);
+		/*exec_name = find_executable(user_args[0], path_value_array); */
+		
 
 		/* create fork, execute tokenized input as command */
 		/* frees everything if fork or exec fails */

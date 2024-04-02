@@ -12,14 +12,11 @@ char *find_executable(char *arg, char **paths)
 	int i = 0;
 	char *str;
 
-	if (arg == NULL)
+	if (arg == NULL || paths == NULL)
 		return (NULL);
 
-	if (access(arg, X_OK) == 0)
-		return (_strdup(arg));
-
-	if (paths == NULL)
-		return (NULL);
+	/* if (access(arg, X_OK) == 0)
+		return (_strdup(arg)); */
 
 	while (paths[i] != NULL)
 	{

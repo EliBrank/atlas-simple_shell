@@ -15,7 +15,6 @@ Shelly works similarly to bash and other basic shells.
 The shell is compiled using an Ubuntu 22.04 LTS machine with: 
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 
-
 ## BUILT-INS
 
 | **Built-ins** | **Result** |
@@ -26,3 +25,11 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 ## RETURN VALUE
 
 Shelly will run with a return value of 0, or a 1 if command failed.
+
+## USAGE
+
+
+
+## FLOWCHART
+
+![shelly flowchart](./assets/shelly_flowchart.png "simple shell flowchart")

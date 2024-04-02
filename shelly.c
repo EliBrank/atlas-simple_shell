@@ -18,7 +18,7 @@ int main(int argc, char **argv, char **envp)
 	size_t bufsize = 8192;
 	int status = 0;
 
-	/* argc and argv aren't necessary, so cast as void */
+	/* argc isn't necessary, so cast as void */
 	(void)argc;
 	
 	/* allocate memory for buffer */

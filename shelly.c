@@ -20,7 +20,6 @@ int main(int argc, char **argv, char **envp)
 
 	/* argc and argv aren't necessary, so cast as void */
 	(void)argc;
-	(void)argv;
 	
 	/* allocate memory for buffer */
 	buffer = (char *)malloc(sizeof(char) * bufsize);

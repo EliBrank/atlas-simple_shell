@@ -4,7 +4,7 @@
 .TH SHELLY 1 "March 2024" "Version 1.0" "LINUX"
 
 .SH NAME
-SHELLY \- Command line interface interpreter.
+**SHELLY** \- Command line interface interpreter.
 
 .SH SYNOPSIS
 .B Shelly
@@ -13,30 +13,25 @@ SHELLY \- Command line interface interpreter.
 .SH DESCRIPTION
 .B Shelly
 .TP
-Shell environment that executes commands read from the standard input or from a file.
+The program provides a simple shell environment that executes commands used by the user via the standard input.
+
+The shell is able to read input lines as implemented or from a piped file.
+
+
 
 .SH OPTIONS
+
+hsh is the executable that the user is able to use in order to enter interactive mode.
 .TP
 Once files are compiled, run:
 
 $ ./shelly
 .TP
-In the command line interpretor the following are able to be executed:
+In the command line interpretor the following built-ins are able to be used:
 
 .B env -
 Print current environment.
 
-.B setenv -
-Sets the environment.
-
-.B unsetenv -
-Unsets the environment.
-
-.B cp -
-Copies a file to another file.
-
-.B ls -
-Lists contents of current directory
 .TP
 To exit the program, run:
 
@@ -45,6 +40,12 @@ $ exit
 .SH FILES
 .TP
 .I /atlasschool-simple_shell/Shelly
+
+.SH BUILT-IN COMMANDS
+.TP
+exit: Exits the shell. 
+
+env: Prints the current environment.
 
 .SH BUGS
 None known.

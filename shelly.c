@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **envp)
 		return (-1);
 
 	/* central loop to get user input */
-	while (1)
+	while (true)
 	{
 		/* check for interactive mode */
 		if (isatty(STDIN_FILENO))
@@ -36,9 +36,6 @@ int main(int argc, char **argv, char **envp)
 		bytes = getline(&buffer, &bufsize, stdin);
 		if (bytes == -1)
 			break;
-		
-		if (_isspace(buffer))
-			continue;
 
 		/* built-ins */
 		if (strcmp(buffer, "exit\n") == 0)

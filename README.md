@@ -22,10 +22,6 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89
 | env | Prints the environmental variables  |
 | exit | Exits the shell |
 
-## RETURN VALUE
-
-Shelly will run with a return value of 0, or a 1 if command failed.
-
 ## USAGE
 
 Shelly can be run interactively or non-interactively.  
@@ -55,6 +51,9 @@ drwxr-xr-x 2 root root 4096 Mar  8  2023 sbin
 drwxr-xr-x 8 root root 4096 Mar 23 14:16 share
 drwxr-xr-x 2 root root 4096 Mar  8  2023 src
 ```
+## RETURN VALUE
+
+Upon successful execution, Shelly returns a value of 0, or 1 if the command failed.
 
 ## FLOWCHART
 
